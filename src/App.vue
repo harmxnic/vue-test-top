@@ -1,7 +1,7 @@
 <template>
-  <div id="nav">
+  <div class="container">
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/config">Config</router-link>
   </div>
   <router-view/>
 </template>
@@ -15,8 +15,10 @@
   color: #2c3e50;
 }
 
-#nav {
+.container {
   padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
 
   a {
     font-weight: bold;
