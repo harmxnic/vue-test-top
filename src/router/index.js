@@ -6,26 +6,20 @@ import TodoConfig from "../components/TodoConfig";
 const routes = [
   {
     path: '/',
-    name: 'TodoList',
+    name: 'list',
     component: TodoList,
     props: true
   },
   {
-    path: '/detail',
-    name: 'TodoDetail',
+    path: '/detail/:id',
+    name: 'detail',
     component: TodoDetail
   },
   {
     path: '/config',
-    name: 'TodoConfig',
-    component: TodoConfig,
-    props: true
-  },
-  // {
-  //   path: '/config/:id',
-  //   name: 'TodoConfig',
-  //   component: TodoConfig
-  // }
+    name: 'config',
+    component: TodoConfig
+  }
 ]
 
 const router = createRouter({

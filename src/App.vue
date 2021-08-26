@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/config">Config</router-link>
+    <router-link to="/">Главная</router-link> |
+    <router-link to="/config">Todo добавление/изменение</router-link>
   </div>
   <router-view/>
 </template>

@@ -15,21 +15,22 @@
       >
         <option value="" disabled>Сортировать по...</option>
         <option value="deadline">Дате дедлайна</option>
-        <option value="dateOfCreation">Дате добавления</option>
+        <option value="dateOfCreation">Дате изменения</option>
       </select>
     </div>
     <table class="table">
       <tr class="table__row">
         <th class="table__head">Название</th>
         <th class="table__head">Дата дедлайна</th>
-        <th class="table__head">Дата создания</th>
+        <th class="table__head">Дата изменения</th>
       </tr>
       <tr class="table__row" v-for="todo in sortedListByTitle" :key="todo.id">
         <td class="table__col">{{todo.title}}</td>
         <td class="table__col">{{todo.deadline}}</td>
         <td class="table__col">{{todo.dateOfCreation}}</td>
         <td class="table__col table__col-delete" @click="showModal(todo.id)">Удалить</td>
-        <td class="table__col table__col-edit" @click="$router.push(`/config`)">Редактировать</td>
+        <td class="table__col table__col-edit" @click="editTodo(todo.id)">Редактировать</td>
+        <td class="table__col table__col-more" @click="this.$router.push({ name: 'detail', params: {id: todo.id}})">Подробнее</td>
       </tr>
     </table>
   </div>
@@ -46,9 +47,11 @@
 
 <script>
 import {mapState} from "vuex";
+import TodoConfig from "./TodoConfig";
 
 export default {
   name: "TodoList",
+  components: {TodoConfig},
   methods: {
     showModal(todoId) {
       this.$store.commit('showModal', todoId)
@@ -65,6 +68,10 @@ export default {
     },
     updateSelectedOption(e) {
       this.$store.commit('updateSelectedOption', e.target.value)
+    },
+    editTodo(id) {
+      this.$store.commit('editTodo', id)
+      this.$router.push('/config')
     }
   },
   computed: {
@@ -76,7 +83,8 @@ export default {
     ]),
     sortedListByOption() {
       return [...this.todoList].sort((a, b) => {
-        return a[this.selectedOption]?.localeCompare(b[this.selectedOption])
+        return new Date(b[this.selectedOption]) - new Date(a[this.selectedOption])
+        //a[this.selectedOption]?.localeCompare(b[this.selectedOption])
       }).reverse()
     },
     sortedListByTitle() {
@@ -123,6 +131,11 @@ export default {
     }
     &-edit {
       color: darkblue;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    &-more {
+      color: darkgoldenrod;
       cursor: pointer;
       font-weight: 600;
     }

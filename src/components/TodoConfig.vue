@@ -12,7 +12,7 @@
         <input
             type="text"
             class="form__input"
-            placeholder="Введите дату дедлайна"
+            placeholder="Введите дату дедлайна: mm.dd.yyyy"
             :value="inputDeadline"
             @input="updateDeadline"
         >
@@ -29,7 +29,7 @@
           @click="updateList"
           :class="{disabled: !(inputTitle && inputText)}"
       >
-        Создать ToDo
+        ToDo
       </button>
     </form>
   </div>
@@ -51,7 +51,7 @@ export default {
       this.$store.commit('updateText', e.target.value)
     },
     updateList() {
-      this.$store.commit('updateList')
+      this.$store.dispatch('updateList')
     }
   },
   computed: {
@@ -62,7 +62,6 @@ export default {
     ])
   },
   mounted() {
-
   }
 }
 </script>
